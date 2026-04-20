@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TakbytePris.se</title>
+
+  <style>
+    :root{
+      --red:#ef3b33;
+      --text:#2f2f2f;
+      --muted:#666;
+      --yellow:#f3c93f;
+      --white:#ffffff;
+      --blue:#123f7a;
+      --hero-h:720px;
+      --feature-overlap:110px;
+      --coverage-lift:170px;
+      --radius:18px;
+      --shadow:0 18px 35px rgba(0,0,0,.14);
+      --wrap:min(1280px, calc(100% - 48px));
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html,body{
+      width:100%;
+      overflow-x:hidden;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:#f3f3f3;
+    }
+
+    body::-webkit-scrollbar{
+      display:none;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      display:block;
+      max-width:100%;
+    }
+
+    .container{
+      width:var(--wrap);
+      margin:0 auto;
+    }
+
+    /* HEADER */
+    .site-header{
+      position:relative;
+      z-index:20;
+      background:#fff;
+      border-bottom:1px solid rgba(0,0,0,.05);
+    }
+
+    .site-header .container{
+      min-height:88px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      flex-shrink:0;
+    }
+
+    .brand-logo{
+      width:38px;
+      height:38px;
+      object-fit:contain;
+    }
+
+    .brand-name{
+      font-size:26px;
+      line-height:1;
+      font-weight:800;
+      color:#2e2e2e;
+      letter-spacing:-0.02em;
+    }
+
+    .brand-name .red{
+      color:var(--red);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:42px;
+      margin-left:auto;
+    }
+
+    .nav a{
+      font-size:18px;
+      font-weight:600;
+      color:#4b4b4b;
+    }
+
+    .cta-btn{
+      background:var(--red);
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      padding:16px 26px;
+      border-radius:14px;
+      box-shadow:0 10px 18px rgba(239,59,51,.22);
+    }
+
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:var(--hero-h);
+      padding:68px 0 calc(var(--feature-overlap) + 70px);
+      overflow:visible;
+      background:
+        linear-gradient(90deg, rgba(31,31,31,.36) 0%, rgba(31,31,31,.18) 26%, rgba(31,31,31,0) 48%),
+        url("assets/heroimage.png") center center / cover no-repeat;
+      z-index:1;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      width:var(--wrap);
+      margin:0 auto;
+      display:flex;
+      align-items:flex-start;
+    }
+
+    .hero-copy{
+      max-width:620px;
+      color:#fff;
+      padding-top:8px;
+    }
+
+    .hero-copy h1{
+      font-size:clamp(56px, 6vw, 82px);
+      line-height:.95;
+      letter-spacing:-0.03em;
+      font-weight:900;
+      margin-bottom:28px;
+    }
+
+    .hero-copy h1 .yellow{
+      color:var(--yellow);
+    }
+
+    .hero-copy p{
+      max-width:720px;
+      font-size:clamp(24px, 2.2vw, 34px);
+      line-height:1.28;
+      font-weight:700;
+      text-shadow:0 3px 10px rgba(0,0,0,.12);
+    }
+
+    /* FORM CARD */
+    .quote-card{
+      margin-top:42px;
+      width:min(640px, 100%);
+      background:#fff;
+      color:var(--text);
+      border-radius:18px;
+      padding:28px 28px 26px;
+      box-shadow:0 18px 34px rgba(0,0,0,.18);
+    }
+
+    .quote-card h2{
+      color:var(--red);
+      font-size:clamp(24px, 2vw, 32px);
+      line-height:1.15;
+      font-weight:900;
+      margin-bottom:18px;
+      letter-spacing:-0.03em;
+    }
+
+    .input-wrap{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-height:74px;
+      border:2px solid #dfdfdf;
+      border-radius:12px;
+      padding:0 18px;
+      background:#fff;
+      margin-bottom:18px;
+    }
+
+    .input-icon{
+      width:24px;
+      height:24px;
+      object-fit:contain;
+      flex:0 0 24px;
+    }
+
+    .input-wrap input{
+      width:100%;
+      border:none;
+      outline:none;
+      font-size:22px;
+      color:#444;
+      background:transparent;
+    }
+
+    .input-wrap input::placeholder{
+      color:#9a9a9a;
+    }
+
+    .submit-btn{
+      width:100%;
+      border:none;
+      cursor:pointer;
+      min-height:74px;
+      border-radius:12px;
+      background:var(--red);
+      color:#fff;
+      font-size:clamp(22px, 1.9vw, 34px);
+      font-weight:900;
+      letter-spacing:-0.03em;
+      box-shadow:inset 0 -3px 0 rgba(0,0,0,.08);
+    }
+
+    /* FEATURES OVERLAP */
+    .features-wrap{
+      position:relative;
+      z-index:5;
+      width:var(--wrap);
+      margin:calc(var(--feature-overlap) * -1) auto 0;
+    }
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:0;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 14px 30px rgba(0,0,0,.12);
+    }
+
+    .feature-card{
+      background:#fff;
+      min-height:245px;
+      padding:26px 28px 26px;
+      text-align:center;
+      border-right:1px solid #e8e8e8;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .feature-card:last-child{
+      border-right:none;
+    }
+
+    .feature-icon{
+      width:110px;
+      height:110px;
+      object-fit:contain;
+      margin-bottom:18px;
+    }
+
+    .feature-card h3{
+      font-size:clamp(28px, 2vw, 34px);
+      line-height:1.08;
+      font-weight:900;
+      color:#202a3a;
+      margin-bottom:10px;
+      letter-spacing:-0.03em;
+    }
+
+    .feature-card p{
+      font-size:clamp(18px, 1.3vw, 22px);
+      line-height:1.32;
+      color:#444;
+      max-width:340px;
+    }
+
+    /* COVERAGE SECTION */
+    .coverage-section{
+      position:relative;
+      margin-top:calc(var(--coverage-lift) * -1);
+      padding:calc(110px + var(--coverage-lift)) 0 90px;
+      overflow:hidden;
+      background-color:#eef2f5;
+      z-index:1;
+      isolation:isolate;
+    }
+
+    .coverage-section::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:url("assets/city-map-bg.png") center center / cover no-repeat;
+      z-index:0;
+      transform:scale(1.02);
+    }
+
+    .coverage-section::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.86) 0%, rgba(255,255,255,.68) 38%, rgba(255,255,255,.28) 66%, rgba(255,255,255,.10) 100%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .coverage-inner{
+      position:relative;
+      z-index:2;
+      width:var(--wrap);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0, 1.05fr) minmax(360px, .95fr);
+      align-items:center;
+      gap:36px;
+    }
+
+    .coverage-copy{
+      max-width:760px;
+    }
+
+    .coverage-copy h2{
+      font-size:clamp(36px, 4vw, 64px);
+      line-height:1.02;
+      font-weight:900;
+      color:#103d78;
+      letter-spacing:-0.04em;
+      margin-bottom:22px;
+    }
+
+    .coverage-copy p{
+      font-size:clamp(22px, 1.8vw, 34px);
+      line-height:1.4;
+      color:#2f3a48;
+      max-width:760px;
+    }
+
+    .coverage-map-wrap{
+      position:relative;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+    }
+
+    .coverage-map{
+      width:min(100%, 540px);
+      filter:drop-shadow(0 24px 35px rgba(15,58,115,.18));
+    }
+
+    .after-coverage{
+      height:40px;
+      background:#f3f3f3;
+    }
+
+    /* RESPONSIVE */
+    @media (min-width:1600px){
+      .coverage-section::before{
+        background-size:cover;
+        background-position:center center;
+        transform:scale(1.06);
+      }
+    }
+
+    @media (max-width:1100px){
+      :root{
+        --hero-h:650px;
+        --feature-overlap:90px;
+        --coverage-lift:145px;
+      }
+
+      .nav{
+        gap:26px;
+      }
+
+      .nav a{
+        font-size:16px;
+      }
+
+      .cta-btn{
+        font-size:16px;
+        padding:14px 20px;
+      }
+
+      .feature-card{
+        min-height:220px;
+        padding:22px 18px;
+      }
+
+      .feature-icon{
+        width:92px;
+        height:92px;
+      }
+
+      .coverage-section{
+        padding:calc(95px + var(--coverage-lift)) 0 80px;
+      }
+
+      .coverage-inner{
+        grid-template-columns:1fr 430px;
+        gap:24px;
+      }
+
+      .coverage-section::before{
+        background-position:center center;
+        transform:scale(1.04);
+      }
+    }
+
+    @media (max-width:860px){
+      :root{
+        --coverage-lift:90px;
+      }
+
+      .site-header .container{
+        flex-wrap:wrap;
+        justify-content:center;
+        padding:16px 0;
+      }
+
+      .nav{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+        margin-left:0;
+      }
+
+      .hero{
+        min-height:auto;
+        padding:44px 0 calc(var(--feature-overlap) + 40px);
+        background-position:center right;
+      }
+
+      .hero-copy{
+        max-width:100%;
+      }
+
+      .quote-card{
+        width:100%;
+      }
+
+      .features{
+        grid-template-columns:1fr;
+        gap:16px;
+        background:transparent;
+        border-radius:0;
+        overflow:visible;
+        box-shadow:none;
+      }
+
+      .feature-card{
+        border-right:none;
+        border-radius:16px;
+        box-shadow:0 12px 24px rgba(0,0,0,.10);
+      }
+
+      .features-wrap{
+        margin:calc(var(--feature-overlap) * -1) auto calc(var(--coverage-lift) * -1);
+      }
+
+      .coverage-section{
+        margin-top:0;
+        padding:68px 0 68px;
+      }
+
+      .coverage-section::before{
+        background-position:center center;
+        background-size:cover;
+        transform:scale(1.08);
+      }
+
+      .coverage-section::after{
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.90) 0%, rgba(255,255,255,.80) 48%, rgba(255,255,255,.70) 100%);
+      }
+
+      .coverage-inner{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+
+      .coverage-copy{
+        max-width:100%;
+        text-align:left;
+      }
+
+      .coverage-map-wrap{
+        justify-content:center;
+      }
+
+      .coverage-map{
+        width:min(100%, 430px);
+      }
+    }
+
+    @media (max-width:560px){
+      :root{
+        --wrap:min(100%, calc(100% - 24px));
+      }
+
+      .brand-name{
+        font-size:22px;
+      }
+
+      .hero-copy h1{
+        font-size:52px;
+      }
+
+      .hero-copy p{
+        font-size:22px;
+      }
+
+      .quote-card{
+        padding:22px 18px 18px;
+      }
+
+      .quote-card h2{
+        font-size:24px;
+      }
+
+      .input-wrap{
+        min-height:60px;
+      }
+
+      .input-wrap input{
+        font-size:18px;
+      }
+
+      .submit-btn{
+        min-height:62px;
+        font-size:24px;
+      }
+
+      .feature-card h3{
+        font-size:24px;
+      }
+
+      .feature-card p{
+        font-size:17px;
+      }
+
+      .coverage-section{
+        padding:58px 0 58px;
+      }
+
+      .coverage-section::before{
+        background-position:center center;
+        background-size:cover;
+        transform:scale(1.12);
+      }
+
+      .coverage-copy h2{
+        font-size:38px;
+      }
+
+      .coverage-copy p{
+        font-size:18px;
+        line-height:1.55;
+      }
+
+      .coverage-map{
+        width:min(100%, 360px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="#" class="brand">
+        <img src="assets/logo.svg" alt="TakbytePris logo" class="brand-logo">
+        <div class="brand-name">Takbyte<span class="red">Pris</span>.se</div>
+      </a>
+
+      <nav class="nav">
+        <a href="#">Hem</a>
+        <a href="#">Så funkar det</a>
+        <a href="#">Vanliga frågor</a>
+        <a href="#" class="cta-btn">Få Offert</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Hitta <span class="yellow">takfirma</span><br>nära dig!</h1>
+        <p>Jämför upp till 4 offerter från kvalitetssäkrade takfirmor i ditt område.</p>
+
+        <div class="quote-card">
+          <h2>Få gratis offert från takläggare</h2>
+
+          <div class="input-wrap">
+            <img src="assets/location-icon.svg" alt="" class="input-icon">
+            <input type="text" placeholder="Ange ditt postnummer">
+          </div>
+
+          <button class="submit-btn">Hämta Offert</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="features-wrap">
+    <section class="features">
+      <article class="feature-card">
+        <img src="assets/icon1.svg" alt="" class="feature-icon">
+        <h3>Beskriv ditt takprojekt</h3>
+        <p>Berätta vad du önskar hjälp med och jämför offerter.</p>
+      </article>
+
+      <article class="feature-card">
+        <img src="assets/icon2.svg" alt="" class="feature-icon">
+        <h3>Jämför kvalitetssäkrade takfirmor</h3>
+        <p>Alla takfirmor är noggrant kontrollerade.</p>
+      </article>
+
+      <article class="feature-card">
+        <img src="assets/icon3.svg" alt="" class="feature-icon">
+        <h3>Hitta bästa priset</h3>
+        <p>Välj bästa takofferten och spara pengar.</p>
+      </article>
+    </section>
+  </div>
+
+  <section class="coverage-section">
+    <div class="coverage-inner">
+      <div class="coverage-copy">
+        <h2>Få kontakt med takläggare i hela Sverige</h2>
+        <p>
+          Vårt nätverk av takföretag täcker hela landet och du kan enkelt
+          få kontakt med takfirmor nära dig.
+        </p>
+      </div>
+
+      <div class="coverage-map-wrap">
+        <img src="assets/sweden-map.png" alt="Karta över Sverige med takläggare" class="coverage-map">
+      </div>
+    </div>
+  </section>
+
+  <section class="after-coverage"></section>
+
+</body>
+</html>
