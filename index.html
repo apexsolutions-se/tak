@@ -51,7 +51,8 @@
       max-width:100%;
     }
 
-    button{
+    button,
+    input{
       font:inherit;
     }
 
@@ -468,7 +469,7 @@
       }
     }
 
-    /* MOBILE NAV + LAYOUT */
+    /* MOBILE */
     @media (max-width:860px){
       .site-header .container{
         min-height:110px;
@@ -774,16 +775,23 @@
         <h1>Hitta <span class="yellow">takfirma</span><br>nära dig!</h1>
         <p>Jämför upp till 4 offerter från kvalitetssäkrade takfirmor i ditt område.</p>
 
-        <div class="quote-card">
+        <form class="quote-card" action="results.html" method="GET">
           <h2>Få gratis offert från takläggare</h2>
 
           <div class="input-wrap">
             <img src="assets/location-icon.svg" alt="" class="input-icon">
-            <input type="text" placeholder="Ange ditt postnummer">
+            <input
+              type="text"
+              name="postcode"
+              placeholder="Ange ditt postnummer"
+              inputmode="numeric"
+              autocomplete="postal-code"
+              required
+            >
           </div>
 
-          <button class="submit-btn">Hämta Offert</button>
-        </div>
+          <button type="submit" class="submit-btn">Hämta Offert</button>
+        </form>
       </div>
     </div>
   </section>
