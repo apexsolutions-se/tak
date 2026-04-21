@@ -13,11 +13,8 @@
       --yellow:#f3c93f;
       --white:#ffffff;
       --blue:#123f7a;
+      --section-blue:#24476f;
       --hero-h:720px;
-      --feature-overlap:110px;
-      --coverage-lift:170px;
-      --radius:18px;
-      --shadow:0 18px 35px rgba(0,0,0,.14);
       --wrap:min(1280px, calc(100% - 48px));
     }
 
@@ -62,7 +59,7 @@
     /* HEADER */
     .site-header{
       position:relative;
-      z-index:20;
+      z-index:30;
       background:#fff;
       border-bottom:1px solid rgba(0,0,0,.05);
     }
@@ -127,10 +124,10 @@
     .hero{
       position:relative;
       min-height:var(--hero-h);
-      padding:68px 0 calc(var(--feature-overlap) + 70px);
+      padding:68px 0 70px;
       overflow:visible;
       background:
-        linear-gradient(90deg, rgba(31,31,31,.36) 0%, rgba(31,31,31,.18) 26%, rgba(31,31,31,0) 48%),
+        linear-gradient(90deg, rgba(31,31,31,.30) 0%, rgba(31,31,31,.14) 28%, rgba(31,31,31,0) 52%),
         url("assets/heroimage.png") center center / cover no-repeat;
       z-index:1;
     }
@@ -236,90 +233,79 @@
       box-shadow:inset 0 -3px 0 rgba(0,0,0,.08);
     }
 
-    /* FEATURES OVERLAP */
-    .features-wrap{
-      position:relative;
-      z-index:5;
-      width:var(--wrap);
-      margin:calc(var(--feature-overlap) * -1) auto 0;
+    /* FEATURES SECTION */
+    .features-section{
+      background:#fff;
+      padding:34px 0 36px;
     }
 
-    .features{
+    .features-card{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
-      gap:0;
-      border-radius:16px;
+      background:#fff;
+      border-radius:0;
       overflow:hidden;
-      box-shadow:0 14px 30px rgba(0,0,0,.12);
     }
 
-    .feature-card{
-      background:#fff;
-      min-height:245px;
-      padding:26px 28px 26px;
-      text-align:center;
-      border-right:1px solid #e8e8e8;
+    .feature-item{
+      min-height:250px;
+      padding:18px 28px 10px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:flex-start;
+      text-align:center;
+      background:#fff;
     }
 
-    .feature-card:last-child{
-      border-right:none;
+    .feature-item + .feature-item{
+      border-left:1px solid rgba(0,0,0,.08);
     }
 
     .feature-icon{
-      width:110px;
-      height:110px;
+      width:88px;
+      height:88px;
       object-fit:contain;
-      margin-bottom:18px;
+      margin-bottom:22px;
+      flex:0 0 auto;
     }
 
-    .feature-card h3{
-      font-size:clamp(28px, 2vw, 34px);
+    .feature-item h3{
+      font-size:clamp(24px, 2vw, 34px);
       line-height:1.08;
-      font-weight:900;
-      color:#202a3a;
-      margin-bottom:10px;
       letter-spacing:-0.03em;
+      font-weight:800;
+      color:#1f3558;
+      margin-bottom:12px;
+      max-width:360px;
     }
 
-    .feature-card p{
-      font-size:clamp(18px, 1.3vw, 22px);
-      line-height:1.32;
-      color:#444;
-      max-width:340px;
+    .feature-item p{
+      font-size:clamp(16px, 1.1vw, 20px);
+      line-height:1.35;
+      color:#555;
+      font-weight:400;
+      max-width:360px;
     }
 
     /* COVERAGE SECTION */
     .coverage-section{
       position:relative;
-      margin-top:calc(var(--coverage-lift) * -1);
-      padding:calc(110px + var(--coverage-lift)) 0 90px;
       overflow:hidden;
-      background-color:#eef2f5;
-      z-index:1;
-      isolation:isolate;
+      background:
+        linear-gradient(90deg, rgba(248,249,252,.97) 0%, rgba(248,249,252,.9) 38%, rgba(244,248,252,.72) 58%, rgba(240,246,252,.38) 78%, rgba(236,244,251,.15) 100%),
+        url("assets/city-map-bg.png") center center / cover no-repeat;
+      min-height:860px;
+      display:flex;
+      align-items:center;
     }
 
     .coverage-section::before{
       content:"";
       position:absolute;
       inset:0;
-      background:url("assets/city-map-bg.png") center center / cover no-repeat;
-      z-index:0;
-      transform:scale(1.02);
-    }
-
-    .coverage-section::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.86) 0%, rgba(255,255,255,.68) 38%, rgba(255,255,255,.28) 66%, rgba(255,255,255,.10) 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.12) 100%);
       pointer-events:none;
-      z-index:1;
     }
 
     .coverage-inner{
@@ -328,62 +314,53 @@
       width:var(--wrap);
       margin:0 auto;
       display:grid;
-      grid-template-columns:minmax(0, 1.05fr) minmax(360px, .95fr);
+      grid-template-columns:minmax(0, 1.05fr) minmax(320px, 520px);
       align-items:center;
-      gap:36px;
+      gap:24px;
+      padding:88px 0 80px;
     }
 
     .coverage-copy{
-      max-width:760px;
+      max-width:600px;
+      padding-left:8px;
     }
 
     .coverage-copy h2{
-      font-size:clamp(36px, 4vw, 64px);
-      line-height:1.02;
-      font-weight:900;
-      color:#103d78;
-      letter-spacing:-0.04em;
-      margin-bottom:22px;
+      font-size:clamp(32px, 3.2vw, 48px);
+      line-height:1.1;
+      letter-spacing:-0.02em;
+      font-weight:800;
+      color:var(--section-blue);
+      margin-bottom:18px;
     }
 
     .coverage-copy p{
-      font-size:clamp(22px, 1.8vw, 34px);
-      line-height:1.4;
-      color:#2f3a48;
-      max-width:760px;
+      max-width:640px;
+      font-size:clamp(16px, 1.4vw, 20px);
+      line-height:1.6;
+      color:#4a617a;
+      font-weight:400;
     }
 
-    .coverage-map-wrap{
+    .coverage-map{
       position:relative;
       display:flex;
       justify-content:flex-end;
       align-items:center;
+      min-height:620px;
     }
 
-    .coverage-map{
-      width:min(100%, 540px);
-      filter:drop-shadow(0 24px 35px rgba(15,58,115,.18));
-    }
-
-    .after-coverage{
-      height:40px;
-      background:#f3f3f3;
+    .coverage-map img{
+      width:min(100%, 430px);
+      margin-left:auto;
+      transform:translateY(56px);
+      filter:drop-shadow(0 20px 34px rgba(17,63,122,.12));
     }
 
     /* RESPONSIVE */
-    @media (min-width:1600px){
-      .coverage-section::before{
-        background-size:cover;
-        background-position:center center;
-        transform:scale(1.06);
-      }
-    }
-
     @media (max-width:1100px){
       :root{
         --hero-h:650px;
-        --feature-overlap:90px;
-        --coverage-lift:145px;
       }
 
       .nav{
@@ -399,36 +376,29 @@
         padding:14px 20px;
       }
 
-      .feature-card{
+      .feature-item{
         min-height:220px;
-        padding:22px 18px;
+        padding:16px 20px 8px;
       }
 
       .feature-icon{
-        width:92px;
-        height:92px;
-      }
-
-      .coverage-section{
-        padding:calc(95px + var(--coverage-lift)) 0 80px;
+        width:78px;
+        height:78px;
+        margin-bottom:18px;
       }
 
       .coverage-inner{
-        grid-template-columns:1fr 430px;
-        gap:24px;
+        grid-template-columns:1fr 400px;
+        gap:12px;
+        padding:74px 0 70px;
       }
 
-      .coverage-section::before{
-        background-position:center center;
-        transform:scale(1.04);
+      .coverage-map{
+        min-height:520px;
       }
     }
 
     @media (max-width:860px){
-      :root{
-        --coverage-lift:90px;
-      }
-
       .site-header .container{
         flex-wrap:wrap;
         justify-content:center;
@@ -444,7 +414,7 @@
 
       .hero{
         min-height:auto;
-        padding:44px 0 calc(var(--feature-overlap) + 40px);
+        padding:44px 0 40px;
         background-position:center right;
       }
 
@@ -456,57 +426,70 @@
         width:100%;
       }
 
-      .features{
+      .features-section{
+        padding:22px 0 24px;
+      }
+
+      .features-card{
         grid-template-columns:1fr;
-        gap:16px;
-        background:transparent;
-        border-radius:0;
-        overflow:visible;
-        box-shadow:none;
       }
 
-      .feature-card{
-        border-right:none;
-        border-radius:16px;
-        box-shadow:0 12px 24px rgba(0,0,0,.10);
+      .feature-item{
+        min-height:auto;
+        padding:24px 22px;
       }
 
-      .features-wrap{
-        margin:calc(var(--feature-overlap) * -1) auto calc(var(--coverage-lift) * -1);
+      .feature-item + .feature-item{
+        border-left:none;
+        border-top:1px solid rgba(0,0,0,.08);
+      }
+
+      .feature-icon{
+        width:68px;
+        height:68px;
+        margin-bottom:16px;
+      }
+
+      .feature-item h3{
+        font-size:28px;
+        margin-bottom:10px;
+      }
+
+      .feature-item p{
+        font-size:17px;
       }
 
       .coverage-section{
-        margin-top:0;
-        padding:68px 0 68px;
-      }
-
-      .coverage-section::before{
-        background-position:center center;
-        background-size:cover;
-        transform:scale(1.08);
-      }
-
-      .coverage-section::after{
+        min-height:auto;
         background:
-          linear-gradient(180deg, rgba(255,255,255,.90) 0%, rgba(255,255,255,.80) 48%, rgba(255,255,255,.70) 100%);
+          linear-gradient(180deg, rgba(248,249,252,.96) 0%, rgba(244,248,252,.9) 100%),
+          url("assets/city-map-bg.png") center center / cover no-repeat;
       }
 
       .coverage-inner{
         grid-template-columns:1fr;
-        gap:30px;
+        gap:34px;
+        padding:52px 0 56px;
       }
 
       .coverage-copy{
         max-width:100%;
-        text-align:left;
+        padding-left:0;
       }
 
-      .coverage-map-wrap{
-        justify-content:center;
+      .coverage-copy h2{
+        margin-bottom:20px;
       }
 
       .coverage-map{
-        width:min(100%, 430px);
+        min-height:auto;
+        justify-content:center;
+      }
+
+      .coverage-map img{
+        margin:0 auto;
+        width:min(100%, 340px);
+        transform:translateY(20px);
       }
     }
 
@@ -548,35 +531,38 @@
         font-size:24px;
       }
 
-      .feature-card h3{
+      .features-section{
+        padding:18px 0 18px;
+      }
+
+      .feature-item{
+        padding:22px 16px;
+      }
+
+      .feature-item h3{
         font-size:24px;
       }
 
-      .feature-card p{
-        font-size:17px;
+      .feature-item p{
+        font-size:16px;
       }
 
-      .coverage-section{
-        padding:58px 0 58px;
-      }
-
-      .coverage-section::before{
-        background-position:center center;
-        background-size:cover;
-        transform:scale(1.12);
+      .coverage-inner{
+        padding:40px 0 40px;
+        gap:26px;
       }
 
       .coverage-copy h2{
-        font-size:38px;
+        font-size:clamp(34px, 10vw, 52px);
       }
 
       .coverage-copy p{
         font-size:18px;
-        line-height:1.55;
       }
 
-      .coverage-map{
-        width:min(100%, 360px);
+      .coverage-map img{
+        width:min(100%, 280px);
+        transform:translateY(8px);
       }
     }
   </style>
@@ -619,45 +605,45 @@
     </div>
   </section>
 
-  <div class="features-wrap">
-    <section class="features">
-      <article class="feature-card">
-        <img src="assets/icon1.svg" alt="" class="feature-icon">
-        <h3>Beskriv ditt takprojekt</h3>
-        <p>Berätta vad du önskar hjälp med och jämför offerter.</p>
-      </article>
+  <section class="features-section">
+    <div class="container">
+      <div class="features-card">
+        <div class="feature-item">
+          <img src="assets/icon1.svg" alt="" class="feature-icon">
+          <h3>Beskriv ditt takprojekt</h3>
+          <p>Berätta vad du önskar hjälp med och jämför offerter.</p>
+        </div>
 
-      <article class="feature-card">
-        <img src="assets/icon2.svg" alt="" class="feature-icon">
-        <h3>Jämför kvalitetssäkrade takfirmor</h3>
-        <p>Alla takfirmor är noggrant kontrollerade.</p>
-      </article>
+        <div class="feature-item">
+          <img src="assets/icon2.svg" alt="" class="feature-icon">
+          <h3>Jämför kvalitetssäkrade takfirmor</h3>
+          <p>Alla takfirmor är noggrant kontrollerade.</p>
+        </div>
 
-      <article class="feature-card">
-        <img src="assets/icon3.svg" alt="" class="feature-icon">
-        <h3>Hitta bästa priset</h3>
-        <p>Välj bästa takofferten och spara pengar.</p>
-      </article>
-    </section>
-  </div>
-
-  <section class="coverage-section">
-    <div class="coverage-inner">
-      <div class="coverage-copy">
-        <h2>Få kontakt med takläggare i hela Sverige</h2>
-        <p>
-          Vårt nätverk av takföretag täcker hela landet och du kan enkelt
-          få kontakt med takfirmor nära dig.
-        </p>
-      </div>
-
-      <div class="coverage-map-wrap">
-        <img src="assets/sweden-map.png" alt="Karta över Sverige med takläggare" class="coverage-map">
+        <div class="feature-item">
+          <img src="assets/icon3.svg" alt="" class="feature-icon">
+          <h3>Hitta bästa priset</h3>
+          <p>Välj bästa takofferten och spara pengar.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="after-coverage"></section>
+  <section class="coverage-section">
+    <div class="coverage-inner">
+      <div class="coverage-copy">
+        <h2>Få kontakt med<br>takläggare i hela Sverige</h2>
+        <p>
+          Vårt nätverk av takföretag täcker hela landet och du kan enkelt få kontakt
+          med takfirmor nära dig.
+        </p>
+      </div>
+
+      <div class="coverage-map">
+        <img src="assets/sweden-map.png" alt="Karta över Sverige med markeringar">
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>
