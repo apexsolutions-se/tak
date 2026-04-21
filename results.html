@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TakbytePris.se – Resultat</title>
+
+  <style>
+    :root{
+      --red:#ef3b33;
+      --red-dark:#db2c24;
+      --text:#2f2f2f;
+      --muted:#5f6773;
+      --muted-2:#7b8592;
+      --yellow:#f5bf2f;
+      --white:#ffffff;
+      --blue:#123f7a;
+      --section-blue:#1f3f6a;
+      --line:#e7e7e7;
+      --soft:#f5f7fb;
+      --soft-2:#eef3f9;
+      --green:#4ca85f;
+      --wrap:min(1280px, calc(100% - 48px));
+      --shadow:0 16px 30px rgba(0,0,0,.08);
+      --radius:20px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html,body{
+      width:100%;
+      overflow-x:hidden;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:#f3f3f3;
+    }
+
+    body::-webkit-scrollbar{
+      display:none;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      display:block;
+      max-width:100%;
+    }
+
+    button,
+    input,
+    select,
+    textarea{
+      font:inherit;
+    }
+
+    .container{
+      width:var(--wrap);
+      margin:0 auto;
+    }
+
+    /* HEADER */
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:#fff;
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+
+    .site-header .container{
+      min-height:88px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      position:relative;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      flex-shrink:0;
+      position:relative;
+      z-index:101;
+    }
+
+    .brand-logo{
+      width:38px;
+      height:38px;
+      object-fit:contain;
+    }
+
+    .brand-name{
+      font-size:26px;
+      line-height:1;
+      font-weight:800;
+      color:#2e2e2e;
+      letter-spacing:-0.02em;
+    }
+
+    .brand-name .red{
+      color:var(--red);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:42px;
+      margin-left:auto;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:42px;
+    }
+
+    .nav-links a{
+      font-size:18px;
+      font-weight:600;
+      color:#4b4b4b;
+    }
+
+    .cta-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--red);
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      padding:16px 26px;
+      border-radius:14px;
+      box-shadow:0 10px 18px rgba(239,59,51,.22);
+      white-space:nowrap;
+      border:none;
+      cursor:pointer;
+    }
+
+    .burger-btn{
+      display:none;
+      width:66px;
+      height:52px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      z-index:101;
+    }
+
+    .burger-lines{
+      width:42px;
+      height:30px;
+      position:relative;
+      display:block;
+    }
+
+    .burger-lines span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:4px;
+      border-radius:999px;
+      background:#666;
+      transition:transform .28s ease, opacity .2s ease, top .28s ease;
+    }
+
+    .burger-lines span:nth-child(1){ top:0; }
+    .burger-lines span:nth-child(2){ top:13px; }
+    .burger-lines span:nth-child(3){ top:26px; }
+
+    .burger-btn.active .burger-lines span:nth-child(1){
+      top:13px;
+      transform:rotate(45deg);
+    }
+
+    .burger-btn.active .burger-lines span:nth-child(2){
+      opacity:0;
+    }
+
+    .burger-btn.active .burger-lines span:nth-child(3){
+      top:13px;
+      transform:rotate(-45deg);
+    }
+
+    /* TOP RESULTS HERO */
+    .results-hero{
+      background:
+        linear-gradient(90deg, rgba(249,251,254,.96) 0%, rgba(246,249,253,.92) 36%, rgba(241,246,252,.76) 58%, rgba(235,243,251,.45) 80%, rgba(233,242,250,.2) 100%),
+        url("assets/city-map-bg.png") center center / cover no-repeat;
+      border-top:1px solid rgba(0,0,0,.04);
+      border-bottom:1px solid rgba(0,0,0,.04);
+    }
+
+    .results-hero-inner{
+      width:var(--wrap);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 360px;
+      align-items:center;
+      gap:28px;
+      padding:40px 0 38px;
+    }
+
+    .results-copy h1{
+      font-size:clamp(42px, 5vw, 66px);
+      line-height:1.02;
+      letter-spacing:-0.035em;
+      font-weight:900;
+      color:#173c70;
+      margin-bottom:18px;
+    }
+
+    .results-copy p{
+      max-width:720px;
+      font-size:clamp(20px, 1.8vw, 32px);
+      line-height:1.45;
+      color:#505a67;
+    }
+
+    .postcode-card{
+      background:#fff;
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      padding:22px 24px;
+      border:1px solid rgba(0,0,0,.05);
+    }
+
+    .postcode-card-top{
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:16px;
+    }
+
+    .pin-icon{
+      flex:0 0 24px;
+      width:24px;
+      height:24px;
+      margin-top:2px;
+    }
+
+    .postcode-label{
+      font-size:17px;
+      line-height:1.3;
+      color:#616975;
+      margin-bottom:4px;
+    }
+
+    .postcode-value{
+      font-size:clamp(34px, 4vw, 48px);
+      line-height:1;
+      font-weight:900;
+      color:#20262f;
+      letter-spacing:-0.04em;
+    }
+
+    .change-postcode-btn{
+      width:100%;
+      min-height:54px;
+      border-radius:14px;
+      border:1px solid #d9e1ec;
+      background:#f8fbff;
+      color:#1f5fb2;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* RESULTS SECTION */
+    .results-section{
+      padding:28px 0 34px;
+      background:#f3f3f3;
+    }
+
+    .results-count{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:18px;
+      color:#163866;
+    }
+
+    .results-count-arrow{
+      width:34px;
+      height:34px;
+      flex:0 0 34px;
+    }
+
+    .results-count h2{
+      font-size:clamp(26px, 2.2vw, 40px);
+      line-height:1.06;
+      letter-spacing:-0.03em;
+      font-weight:900;
+    }
+
+    .company-list{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .company-card{
+      background:#fff;
+      border-radius:20px;
+      border:1px solid rgba(0,0,0,.05);
+      box-shadow:0 10px 24px rgba(0,0,0,.06);
+      display:grid;
+      grid-template-columns:280px 1fr 280px;
+      overflow:hidden;
+    }
+
+    .company-col{
+      padding:28px 28px 26px;
+      min-width:0;
+    }
+
+    .company-col + .company-col{
+      border-left:1px solid #ececec;
+    }
+
+    .company-brand{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:center;
+      min-height:100%;
+    }
+
+    .company-logo{
+      width:200px;
+      max-width:100%;
+      height:auto;
+      margin-bottom:20px;
+    }
+
+    .verified-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-height:40px;
+      border-radius:999px;
+      padding:0 14px;
+      background:#f1f4fa;
+      color:#556c90;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.01em;
+    }
+
+    .verified-pill svg{
+      width:18px;
+      height:18px;
+      flex:0 0 18px;
+    }
+
+    .company-features{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      justify-content:center;
+      min-height:100%;
+    }
+
+    .feature-row{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      font-size:18px;
+      line-height:1.35;
+      color:#515965;
+    }
+
+    .feature-row svg{
+      width:20px;
+      height:20px;
+      flex:0 0 20px;
+      margin-top:1px;
+    }
+
+    .feature-row strong{
+      color:#1f2731;
+    }
+
+    .company-rating{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:14px;
+      min-height:100%;
+    }
+
+    .stars{
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+
+    .stars svg{
+      width:26px;
+      height:26px;
+      flex:0 0 26px;
+    }
+
+    .rating-line{
+      font-size:18px;
+      color:#444e5a;
+      line-height:1.35;
+    }
+
+    .rating-line strong{
+      font-size:20px;
+      color:#1d232d;
+    }
+
+    .response-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--green);
+      font-size:17px;
+      font-weight:700;
+    }
+
+    .response-tag svg{
+      width:18px;
+      height:18px;
+      flex:0 0 18px;
+    }
+
+    .offer-btn{
+      width:100%;
+      min-height:58px;
+      border:none;
+      border-radius:14px;
+      background:var(--red);
+      color:#fff;
+      font-weight:900;
+      font-size:22px;
+      letter-spacing:-0.02em;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      box-shadow:0 10px 18px rgba(239,59,51,.16);
+    }
+
+    .offer-btn:hover{
+      background:var(--red-dark);
+    }
+
+    .offer-btn svg{
+      width:18px;
+      height:18px;
+      flex:0 0 18px;
+    }
+
+    /* EMPTY STATE */
+    .empty-state{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.05);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+    padding:34px;
+    }
+
+    .hidden{
+    display:none !important;
+    }
+
+    .empty-state-head{
+      margin-bottom:24px;
+    }
+
+    .empty-state-head h2{
+      font-size:clamp(30px, 3vw, 44px);
+      line-height:1.08;
+      letter-spacing:-0.03em;
+      color:#173c70;
+      margin-bottom:12px;
+      font-weight:900;
+    }
+
+    .empty-state-head p{
+      max-width:760px;
+      font-size:18px;
+      line-height:1.6;
+      color:#596473;
+    }
+
+    .lead-form{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .field label{
+      font-size:15px;
+      font-weight:700;
+      color:#334155;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      min-height:56px;
+      border:1px solid #d8dee7;
+      border-radius:14px;
+      padding:0 16px;
+      background:#fff;
+      color:#2f2f2f;
+      outline:none;
+    }
+
+    .field textarea{
+      min-height:140px;
+      padding:14px 16px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:#9bb8df;
+      box-shadow:0 0 0 4px rgba(24,87,178,.08);
+    }
+
+    .form-submit{
+      grid-column:1 / -1;
+      display:flex;
+      justify-content:flex-start;
+      padding-top:8px;
+    }
+
+    .form-submit button{
+      min-height:58px;
+      border:none;
+      border-radius:14px;
+      padding:0 28px;
+      background:var(--red);
+      color:#fff;
+      font-weight:900;
+      font-size:20px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(239,59,51,.16);
+    }
+
+    /* TRUST STRIP */
+    .trust-strip{
+      padding:8px 0 34px;
+      background:#f3f3f3;
+    }
+
+    .trust-box{
+      background:#eef3fa;
+      border-radius:20px;
+      border:1px solid rgba(18,63,122,.06);
+      padding:30px 28px;
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:24px;
+    }
+
+    .trust-item{
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+    }
+
+    .trust-item svg{
+      width:36px;
+      height:36px;
+      flex:0 0 36px;
+      color:#233f6d;
+    }
+
+    .trust-item h3{
+      font-size:18px;
+      line-height:1.2;
+      color:#22395f;
+      margin-bottom:8px;
+      font-weight:800;
+    }
+
+    .trust-item p{
+      font-size:15px;
+      line-height:1.55;
+      color:#596473;
+    }
+
+    /* HELP SECTION */
+    .help-section{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(248,249,252,.97) 0%, rgba(248,249,252,.9) 38%, rgba(244,248,252,.72) 58%, rgba(240,246,252,.38) 78%, rgba(236,244,251,.15) 100%),
+        url("assets/city-map-bg.png") center center / cover no-repeat;
+      min-height:360px;
+      display:flex;
+      align-items:center;
+    }
+
+    .help-section::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.12) 100%);
+      pointer-events:none;
+    }
+
+    .help-inner{
+      position:relative;
+      z-index:2;
+      width:var(--wrap);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 360px;
+      gap:30px;
+      align-items:end;
+      padding:40px 0 0;
+    }
+
+    .help-copy{
+      max-width:520px;
+      padding-bottom:44px;
+    }
+
+    .help-copy h2{
+      font-size:clamp(34px, 3vw, 52px);
+      line-height:1.04;
+      letter-spacing:-0.03em;
+      color:#173c70;
+      margin-bottom:14px;
+      font-weight:900;
+    }
+
+    .help-copy p{
+      font-size:18px;
+      line-height:1.6;
+      color:#566173;
+      margin-bottom:22px;
+    }
+
+    .help-contact{
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+    }
+
+    .help-contact svg{
+      width:28px;
+      height:28px;
+      flex:0 0 28px;
+      margin-top:2px;
+      color:#1d3966;
+    }
+
+    .help-phone{
+      font-size:18px;
+      color:#223046;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .help-hours{
+      font-size:15px;
+      color:#697484;
+    }
+
+    .help-map{
+      display:flex;
+      justify-content:flex-end;
+      align-items:flex-end;
+    }
+
+    .help-map img{
+      width:min(100%, 330px);
+      transform:translateY(18px);
+      filter:drop-shadow(0 18px 32px rgba(17,63,122,.12));
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    /* TABLET */
+    @media (max-width:1100px){
+      .nav{
+        gap:26px;
+      }
+
+      .nav-links{
+        gap:26px;
+      }
+
+      .nav-links a{
+        font-size:16px;
+      }
+
+      .cta-btn{
+        font-size:16px;
+        padding:14px 20px;
+      }
+
+      .results-hero-inner{
+        grid-template-columns:1fr 320px;
+        gap:20px;
+      }
+
+      .company-card{
+        grid-template-columns:240px 1fr 250px;
+      }
+
+      .company-col{
+        padding:24px 20px 22px;
+      }
+
+      .company-logo{
+        width:170px;
+      }
+
+      .trust-box{
+        gap:18px;
+      }
+
+      .help-inner{
+        grid-template-columns:1fr 300px;
+      }
+    }
+
+    /* MOBILE */
+    @media (max-width:860px){
+      .site-header .container{
+        min-height:110px;
+        padding:0;
+      }
+
+      .brand{
+        gap:6px;
+      }
+
+      .brand-logo{
+        width:34px;
+        height:34px;
+      }
+
+      .brand-name{
+        font-size:24px;
+      }
+
+      .nav{
+        margin-left:0;
+        gap:14px;
+      }
+
+      .nav-links{
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:0;
+        background:#fff;
+        border-top:1px solid rgba(0,0,0,.06);
+        box-shadow:0 18px 28px rgba(0,0,0,.08);
+        padding:10px 0;
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(-10px);
+        transition:opacity .25s ease, transform .25s ease, visibility .25s ease;
+        z-index:99;
+      }
+
+      .nav-links.open{
+        opacity:1;
+        visibility:visible;
+        transform:translateY(0);
+      }
+
+      .nav-links a{
+        width:100%;
+        padding:16px 24px;
+        font-size:18px;
+      }
+
+      .nav-links a:hover{
+        background:#fafafa;
+      }
+
+      .nav .cta-btn{
+        padding:14px 28px;
+        min-width:178px;
+        font-size:18px;
+        border-radius:18px;
+        box-shadow:0 12px 22px rgba(239,59,51,.16);
+      }
+
+      .burger-btn{
+        display:inline-flex;
+      }
+
+      .results-hero-inner{
+        grid-template-columns:1fr;
+        padding:26px 0 24px;
+      }
+
+      .postcode-card{
+        width:100%;
+      }
+
+      .results-section{
+        padding-top:22px;
+      }
+
+      .company-card{
+        grid-template-columns:1fr;
+      }
+
+      .company-col + .company-col{
+        border-left:none;
+        border-top:1px solid #ececec;
+      }
+
+      .company-logo{
+        width:180px;
+      }
+
+      .company-brand,
+      .company-features,
+      .company-rating{
+        min-height:auto;
+      }
+
+      .lead-form{
+        grid-template-columns:1fr;
+      }
+
+      .trust-box{
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+
+      .help-inner{
+        grid-template-columns:1fr;
+        gap:20px;
+        padding-top:32px;
+      }
+
+      .help-copy{
+        max-width:100%;
+        padding-bottom:0;
+      }
+
+      .help-map{
+        justify-content:center;
+      }
+
+      .help-map img{
+        width:min(100%, 260px);
+        transform:translateY(10px);
+      }
+    }
+
+    @media (max-width:560px){
+      :root{
+        --wrap:min(100%, calc(100% - 24px));
+      }
+
+      .site-header .container{
+        min-height:108px;
+      }
+
+      .brand-name{
+        font-size:22px;
+      }
+
+      .brand-logo{
+        width:32px;
+        height:32px;
+      }
+
+      .nav{
+        gap:10px;
+      }
+
+      .nav .cta-btn{
+        min-width:150px;
+        padding:13px 22px;
+        font-size:16px;
+        border-radius:18px;
+      }
+
+      .burger-btn{
+        width:56px;
+        height:50px;
+      }
+
+      .burger-lines{
+        width:36px;
+        height:26px;
+      }
+
+      .burger-lines span{
+        height:4px;
+      }
+
+      .burger-lines span:nth-child(1){ top:0; }
+      .burger-lines span:nth-child(2){ top:11px; }
+      .burger-lines span:nth-child(3){ top:22px; }
+
+      .burger-btn.active .burger-lines span:nth-child(1),
+      .burger-btn.active .burger-lines span:nth-child(3){
+        top:11px;
+      }
+
+      .results-copy h1{
+        font-size:44px;
+      }
+
+      .results-copy p{
+        font-size:18px;
+      }
+
+      .postcode-card{
+        padding:18px 18px 16px;
+      }
+
+      .postcode-value{
+        font-size:38px;
+      }
+
+      .results-count h2{
+        font-size:28px;
+      }
+
+      .company-col{
+        padding:20px 16px;
+      }
+
+      .offer-btn{
+        font-size:20px;
+      }
+
+      .empty-state{
+        padding:24px 18px;
+      }
+
+      .help-copy h2{
+        font-size:42px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="#" class="brand">
+        <img src="assets/logo.svg" alt="TakbytePris logo" class="brand-logo">
+        <div class="brand-name">Takbyte<span class="red">Pris</span>.se</div>
+      </a>
+
+      <nav class="nav">
+        <div class="nav-links" id="mobileMenu">
+          <a href="#">Hem</a>
+          <a href="#">Så funkar det</a>
+          <a href="#">Vanliga frågor</a>
+        </div>
+
+        <a href="#" class="cta-btn">Få Offert</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobileMenu" type="button">
+          <span class="burger-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="results-hero">
+    <div class="results-hero-inner">
+      <div class="results-copy">
+        <h1>Takfirmor i ditt område</h1>
+        <p>
+          Här är upp till 4 kvalitetssäkrade takfirmor som kan hjälpa dig med ditt takprojekt.
+          Jämför offerter och välj det bästa alternativet.
+        </p>
+      </div>
+
+      <div class="postcode-card">
+        <div class="postcode-card-top">
+          <svg class="pin-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 22s7-6.2 7-13a7 7 0 1 0-14 0c0 6.8 7 13 7 13Z" fill="#ef3b33"/>
+            <circle cx="12" cy="9" r="3.2" fill="#fff"/>
+          </svg>
+
+          <div>
+            <div class="postcode-label">Ditt postnummer:</div>
+            <div class="postcode-value" id="postcodeDisplay">123 45</div>
+          </div>
+        </div>
+
+        <button class="change-postcode-btn" id="changePostcodeBtn">Ändra postnummer</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results-section">
+    <div class="container">
+      <div id="resultsState">
+        <div class="results-count">
+          <svg class="results-count-arrow" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M31 5C21 8 13 15 11 25" stroke="#ef3b33" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M11 25l.5 9M11 25l8 4" stroke="#ef3b33" stroke-width="3.2" stroke-linecap="round"/>
+          </svg>
+          <h2 id="resultsCountText">4 takfirmor kan hjälpa dig</h2>
+        </div>
+
+        <div class="company-list" id="companyList"></div>
+      </div>
+
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-state-head">
+          <h2>Vi har ännu inga anslutna takfirmor i detta område</h2>
+          <p>
+            Fyll gärna i dina uppgifter nedan så kan vi kontakta dig när vi utökar vårt nätverk
+            eller hjälpa dig vidare med din förfrågan.
+          </p>
+        </div>
+
+        <form class="lead-form">
+          <div class="field">
+            <label for="name">Namn</label>
+            <input id="name" type="text" placeholder="Ditt namn">
+          </div>
+
+          <div class="field">
+            <label for="phone">Telefonnummer</label>
+            <input id="phone" type="tel" placeholder="070-123 45 67">
+          </div>
+
+          <div class="field">
+            <label for="email">E-post</label>
+            <input id="email" type="email" placeholder="namn@email.se">
+          </div>
+
+          <div class="field">
+            <label for="postcode">Postnummer</label>
+            <input id="postcode" type="text" placeholder="Ange postnummer">
+          </div>
+
+          <div class="field full">
+            <label for="workType">Typ av arbete</label>
+            <select id="workType">
+              <option value="">Välj typ av arbete</option>
+              <option>Takreparation</option>
+              <option>Takbyte</option>
+              <option>Takrenovering</option>
+              <option>Takinspektion</option>
+              <option>Annat</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="message">Meddelande</label>
+            <textarea id="message" placeholder="Beskriv gärna vad du behöver hjälp med"></textarea>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit">Skicka förfrågan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-box">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3 5 6v6c0 4.8 2.9 7.8 7 9 4.1-1.2 7-4.2 7-9V6l-7-3Z" stroke="currentColor" stroke-width="2"/>
+            <path d="m9.2 11.8 2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <h3>Alla takfirmor är kvalitetssäkrade</h3>
+            <p>Vi kontrollerar företag, försäkringar och referenser noggrant.</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 12a6 6 0 1 0 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <h3>Helt gratis & förpliktelsefritt</h3>
+            <p>Det kostar inget att få offerter och du förbinder dig inte till något.</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 10V8a4 4 0 1 1 8 0v2" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="15" r="1.2" fill="currentColor"/>
+          </svg>
+          <div>
+            <h3>Dina uppgifter är trygga hos oss</h3>
+            <p>Vi delar aldrig dina uppgifter utan ditt godkännande.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="help-section">
+    <div class="help-inner">
+      <div class="help-copy">
+        <h2>Behöver du hjälp?</h2>
+        <p>Vår support finns här för att hjälpa dig genom hela processen.</p>
+
+        <div class="help-contact">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6.6 3.8c.5-.5 1.3-.6 1.9-.2l2.1 1.4c.8.5 1 1.5.6 2.3l-.8 1.5c-.3.5-.2 1.1.2 1.5l3.2 3.2c.4.4 1 .5 1.5.2l1.5-.8c.8-.4 1.8-.2 2.3.6l1.4 2.1c.4.6.3 1.4-.2 1.9l-1.2 1.2c-.8.8-2 1.1-3.1.7-2.5-.9-4.8-2.5-6.8-4.5s-3.6-4.3-4.5-6.8c-.4-1.1-.1-2.3.7-3.1l1.2-1.2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div class="help-phone">010-123 45 67</div>
+            <div class="help-hours">Vardagar 08:00 – 17:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-map">
+        <img src="assets/sweden-map.png" alt="Karta över Sverige med markeringar">
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      burgerBtn.classList.toggle('active', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        burgerBtn.classList.remove('active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860) {
+        mobileMenu.classList.remove('open');
+        burgerBtn.classList.remove('active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* MOCK LOGOS AS INLINE SVG */
+    function svgToDataUri(svg) {
+      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    }
+
+    const logos = {
+      nordic: svgToDataUri(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+          <rect width="320" height="130" fill="white"/>
+          <g transform="translate(12,16)">
+            <path d="M16 52 54 18l38 34h-14L54 31 30 52Z" fill="#ef3b33"/>
+            <path d="M38 56h12v14H38z" fill="#ef3b33"/>
+            <path d="M61 56h12v14H61z" fill="#ef3b33"/>
+          </g>
+          <text x="106" y="58" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#20262f">Nordic</text>
+          <text x="106" y="92" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#20262f">Tak &amp; Bygg</text>
+        </svg>
+      `),
+      svensk: svgToDataUri(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+          <rect width="320" height="130" fill="white"/>
+          <g transform="translate(10,18)">
+            <path d="M16 56 44 30l22 18 24-23 42 31h-16L89 37 66 58 45 41 31 56Z" fill="#184f96"/>
+          </g>
+          <text x="22" y="98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Svensk Takläggning</text>
+        </svg>
+      `),
+      trygga: svgToDataUri(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+          <rect width="320" height="130" fill="white"/>
+          <g transform="translate(16,14)">
+            <path d="M16 64 52 30l36 34h-10V46H26v18H16Z" fill="none" stroke="#f58220" stroke-width="8" stroke-linejoin="round"/>
+            <rect x="44" y="50" width="12" height="14" fill="#f58220"/>
+            <rect x="31" y="50" width="8" height="8" fill="#f58220"/>
+            <rect x="61" y="50" width="8" height="8" fill="#f58220"/>
+          </g>
+          <text x="126" y="56" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Trygga Tak</text>
+          <text x="126" y="88" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Sverige</text>
+        </svg>
+      `),
+      proffs: svgToDataUri(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+          <rect width="320" height="130" fill="white"/>
+          <g transform="translate(16,18)">
+            <path d="M10 54 52 24l42 30h-14L52 34 24 54Z" fill="#222"/>
+            <path d="M78 54 106 30l20 24h-13L95 39 83 54Z" fill="#222"/>
+          </g>
+          <text x="18" y="102" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="900" fill="#20262f">Proffstak AB</text>
+        </svg>
+      `)
+    };
+
+    const companiesByPostcode = {
+      "12345": [
+        {
+          name: "Nordic Tak & Bygg",
+          logo: logos.nordic,
+          services: [
+            "Takbyte & takrenovering",
+            "Plåttak, tegeltak & papptak",
+            "Över 15 års erfarenhet",
+            "10 års garanti på arbetet"
+          ],
+          rating: "4.8/5",
+          reviews: 128,
+          response: "Snabb respons"
+        },
+        {
+          name: "Svensk Takläggning",
+          logo: logos.svensk,
+          services: [
+            "Takläggning & takservice",
+            "Alla typer av takmaterial",
+            "Över 20 års erfarenhet",
+            "12 års garanti på arbetet"
+          ],
+          rating: "4.7/5",
+          reviews: 96,
+          response: "Snabb respons"
+        },
+        {
+          name: "Trygga Tak Sverige",
+          logo: logos.trygga,
+          services: [
+            "Takbyte & underhåll",
+            "Tegeltak, plåttak & shingel",
+            "Över 10 års erfarenhet",
+            "10 års garanti på arbetet"
+          ],
+          rating: "4.6/5",
+          reviews: 74,
+          response: "Snabb respons"
+        },
+        {
+          name: "Proffstak AB",
+          logo: logos.proffs,
+          services: [
+            "Takrenovering & nyinstallation",
+            "Papptak, plåttak & tegeltak",
+            "Över 18 års erfarenhet",
+            "10 års garanti på arbetet"
+          ],
+          rating: "4.5/5",
+          reviews: 62,
+          response: "Snabb respons"
+        }
+      ]
+    };
+
+    const companyList = document.getElementById('companyList');
+    const resultsState = document.getElementById('resultsState');
+    const emptyState = document.getElementById('emptyState');
+    const postcodeDisplay = document.getElementById('postcodeDisplay');
+    const resultsCountText = document.getElementById('resultsCountText');
+    const changePostcodeBtn = document.getElementById('changePostcodeBtn');
+
+    function formatPostcode(postcode) {
+      const digits = postcode.replace(/\D/g, '').slice(0, 5);
+      if (digits.length === 5) {
+        return digits.slice(0, 3) + ' ' + digits.slice(3);
+      }
+      return postcode;
+    }
+
+    function starSvg() {
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m12 2.8 2.84 5.75 6.35.92-4.6 4.48 1.08 6.33L12 17.3l-5.67 2.98 1.08-6.33-4.6-4.48 6.35-.92L12 2.8Z" fill="#f5bf2f" stroke="#efb400" stroke-width=".6"/>
+        </svg>
+      `;
+    }
+
+    function checkSvg() {
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" fill="#4ca85f"/>
+          <path d="m8.3 12.4 2.4 2.4 5-5.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+
+    function tickSvg() {
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m5.5 12.5 4.1 4.1L18.5 7.8" stroke="#67b96d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+
+    function pinGreySvg() {
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" stroke="#7b8592" stroke-width="2"/>
+          <circle cx="12" cy="10" r="2.2" fill="#7b8592"/>
+        </svg>
+      `;
+    }
+
+    function shieldSvg() {
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3 5 6v6c0 4.8 2.9 7.8 7 9 4.1-1.2 7-4.2 7-9V6l-7-3Z" stroke="currentColor" stroke-width="2"/>
+          <path d="m9.2 11.8 2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+
+    function arrowRightSvg() {
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+
+    function createCompanyCard(company) {
+      const servicesHtml = company.services.map(service => `
+        <div class="feature-row">
+          ${tickSvg()}
+          <span>${service}</span>
+        </div>
+      `).join('');
+
+      return `
+        <article class="company-card">
+          <div class="company-col company-brand">
+            <img src="${company.logo}" alt="${company.name}" class="company-logo">
+            <div class="verified-pill">
+              ${shieldSvg()}
+              <span>KVALITETSSÄKRAD</span>
+            </div>
+          </div>
+
+          <div class="company-col">
+            <div class="company-features">
+              ${servicesHtml}
+              <div class="feature-row">
+                ${pinGreySvg()}
+                <span><strong>Verksam i ditt område</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="company-col">
+            <div class="company-rating">
+              <div class="stars">
+                ${starSvg()}${starSvg()}${starSvg()}${starSvg()}${starSvg()}
+              </div>
+
+              <div class="rating-line">
+                <strong>${company.rating}</strong> (${company.reviews} omdömen)
+              </div>
+
+              <div class="response-tag">
+                ${checkSvg()}
+                <span>${company.response}</span>
+              </div>
+
+              <button class="offer-btn" type="button">
+                <span>Be om offert</span>
+                ${arrowRightSvg()}
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+      function renderPostcode(postcodeRaw) {
+    const clean = postcodeRaw.replace(/\D/g, '').slice(0, 5);
+    const companies = companiesByPostcode[clean];
+
+    postcodeDisplay.textContent = formatPostcode(clean || postcodeRaw || '12345');
+
+    if (companies && companies.length) {
+      resultsState.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      resultsCountText.textContent = `${companies.length} takfirmor kan hjälpa dig`;
+      companyList.innerHTML = companies.map(createCompanyCard).join('');
+    } else {
+      resultsState.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      document.getElementById('postcode').value = clean || postcodeRaw;
+    }
+  }
+
+    changePostcodeBtn.addEventListener('click', () => {
+      const newPostcode = window.prompt('Ange ditt postnummer', '12345');
+      if (newPostcode !== null && newPostcode.trim() !== '') {
+        renderPostcode(newPostcode.trim());
+      }
+    });
+
+    document.querySelector('.lead-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Tack! Din förfrågan har registrerats.');
+    });
+
+    // Initial sample postcode
+    renderPostcode('12345');
+  </script>
+
+</body>
+</html>
