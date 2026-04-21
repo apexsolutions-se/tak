@@ -991,7 +991,7 @@
 
       <nav class="nav">
         <div class="nav-links" id="mobileMenu">
-          <a href="#">Hem</a>
+          <a href="index.html">Hem</a>
           <a href="#">Så funkar det</a>
           <a href="#">Vanliga frågor</a>
         </div>
@@ -1169,265 +1169,264 @@
     </div>
   </section>
 
-  <script>
-    const burgerBtn = document.getElementById('burgerBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
+ <script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-    burgerBtn.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      burgerBtn.classList.toggle('active', isOpen);
-      burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  burgerBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burgerBtn.classList.toggle('active', isOpen);
+    burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      burgerBtn.classList.remove('active');
+      burgerBtn.setAttribute('aria-expanded', 'false');
     });
+  });
 
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        burgerBtn.classList.remove('active');
-        burgerBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860) {
+      mobileMenu.classList.remove('open');
+      burgerBtn.classList.remove('active');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 860) {
-        mobileMenu.classList.remove('open');
-        burgerBtn.classList.remove('active');
-        burgerBtn.setAttribute('aria-expanded', 'false');
+  function svgToDataUri(svg) {
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  }
+
+  const logos = {
+    nordic: svgToDataUri(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+        <rect width="320" height="130" fill="white"/>
+        <g transform="translate(12,16)">
+          <path d="M16 52 54 18l38 34h-14L54 31 30 52Z" fill="#ef3b33"/>
+          <path d="M38 56h12v14H38z" fill="#ef3b33"/>
+          <path d="M61 56h12v14H61z" fill="#ef3b33"/>
+        </g>
+        <text x="106" y="58" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#20262f">Nordic</text>
+        <text x="106" y="92" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#20262f">Tak &amp; Bygg</text>
+      </svg>
+    `),
+    svensk: svgToDataUri(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+        <rect width="320" height="130" fill="white"/>
+        <g transform="translate(10,18)">
+          <path d="M16 56 44 30l22 18 24-23 42 31h-16L89 37 66 58 45 41 31 56Z" fill="#184f96"/>
+        </g>
+        <text x="22" y="98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Svensk Takläggning</text>
+      </svg>
+    `),
+    trygga: svgToDataUri(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+        <rect width="320" height="130" fill="white"/>
+        <g transform="translate(16,14)">
+          <path d="M16 64 52 30l36 34h-10V46H26v18H16Z" fill="none" stroke="#f58220" stroke-width="8" stroke-linejoin="round"/>
+          <rect x="44" y="50" width="12" height="14" fill="#f58220"/>
+          <rect x="31" y="50" width="8" height="8" fill="#f58220"/>
+          <rect x="61" y="50" width="8" height="8" fill="#f58220"/>
+        </g>
+        <text x="126" y="56" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Trygga Tak</text>
+        <text x="126" y="88" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Sverige</text>
+      </svg>
+    `),
+    proffs: svgToDataUri(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
+        <rect width="320" height="130" fill="white"/>
+        <g transform="translate(16,18)">
+          <path d="M10 54 52 24l42 30h-14L52 34 24 54Z" fill="#222"/>
+          <path d="M78 54 106 30l20 24h-13L95 39 83 54Z" fill="#222"/>
+        </g>
+        <text x="18" y="102" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="900" fill="#20262f">Proffstak AB</text>
+      </svg>
+    `)
+  };
+
+  const companiesByPostcode = {
+    "12345": [
+      {
+        name: "Nordic Tak & Bygg",
+        logo: logos.nordic,
+        services: [
+          "Takbyte & takrenovering",
+          "Plåttak, tegeltak & papptak",
+          "Över 15 års erfarenhet",
+          "10 års garanti på arbetet"
+        ],
+        rating: "4.8/5",
+        reviews: 128,
+        response: "Snabb respons"
+      },
+      {
+        name: "Svensk Takläggning",
+        logo: logos.svensk,
+        services: [
+          "Takläggning & takservice",
+          "Alla typer av takmaterial",
+          "Över 20 års erfarenhet",
+          "12 års garanti på arbetet"
+        ],
+        rating: "4.7/5",
+        reviews: 96,
+        response: "Snabb respons"
+      },
+      {
+        name: "Trygga Tak Sverige",
+        logo: logos.trygga,
+        services: [
+          "Takbyte & underhåll",
+          "Tegeltak, plåttak & shingel",
+          "Över 10 års erfarenhet",
+          "10 års garanti på arbetet"
+        ],
+        rating: "4.6/5",
+        reviews: 74,
+        response: "Snabb respons"
+      },
+      {
+        name: "Proffstak AB",
+        logo: logos.proffs,
+        services: [
+          "Takrenovering & nyinstallation",
+          "Papptak, plåttak & tegeltak",
+          "Över 18 års erfarenhet",
+          "10 års garanti på arbetet"
+        ],
+        rating: "4.5/5",
+        reviews: 62,
+        response: "Snabb respons"
       }
-    });
+    ]
+  };
 
-    /* MOCK LOGOS AS INLINE SVG */
-    function svgToDataUri(svg) {
-      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  const companyList = document.getElementById('companyList');
+  const resultsState = document.getElementById('resultsState');
+  const emptyState = document.getElementById('emptyState');
+  const postcodeDisplay = document.getElementById('postcodeDisplay');
+  const resultsCountText = document.getElementById('resultsCountText');
+  const changePostcodeBtn = document.getElementById('changePostcodeBtn');
+
+  function formatPostcode(postcode) {
+    const digits = (postcode || '').replace(/\D/g, '').slice(0, 5);
+    if (digits.length === 5) {
+      return digits.slice(0, 3) + ' ' + digits.slice(3);
     }
+    return digits || '—';
+  }
 
-    const logos = {
-      nordic: svgToDataUri(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
-          <rect width="320" height="130" fill="white"/>
-          <g transform="translate(12,16)">
-            <path d="M16 52 54 18l38 34h-14L54 31 30 52Z" fill="#ef3b33"/>
-            <path d="M38 56h12v14H38z" fill="#ef3b33"/>
-            <path d="M61 56h12v14H61z" fill="#ef3b33"/>
-          </g>
-          <text x="106" y="58" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#20262f">Nordic</text>
-          <text x="106" y="92" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#20262f">Tak &amp; Bygg</text>
-        </svg>
-      `),
-      svensk: svgToDataUri(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
-          <rect width="320" height="130" fill="white"/>
-          <g transform="translate(10,18)">
-            <path d="M16 56 44 30l22 18 24-23 42 31h-16L89 37 66 58 45 41 31 56Z" fill="#184f96"/>
-          </g>
-          <text x="22" y="98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Svensk Takläggning</text>
-        </svg>
-      `),
-      trygga: svgToDataUri(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
-          <rect width="320" height="130" fill="white"/>
-          <g transform="translate(16,14)">
-            <path d="M16 64 52 30l36 34h-10V46H26v18H16Z" fill="none" stroke="#f58220" stroke-width="8" stroke-linejoin="round"/>
-            <rect x="44" y="50" width="12" height="14" fill="#f58220"/>
-            <rect x="31" y="50" width="8" height="8" fill="#f58220"/>
-            <rect x="61" y="50" width="8" height="8" fill="#f58220"/>
-          </g>
-          <text x="126" y="56" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Trygga Tak</text>
-          <text x="126" y="88" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#20262f">Sverige</text>
-        </svg>
-      `),
-      proffs: svgToDataUri(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="320" height="130" viewBox="0 0 320 130">
-          <rect width="320" height="130" fill="white"/>
-          <g transform="translate(16,18)">
-            <path d="M10 54 52 24l42 30h-14L52 34 24 54Z" fill="#222"/>
-            <path d="M78 54 106 30l20 24h-13L95 39 83 54Z" fill="#222"/>
-          </g>
-          <text x="18" y="102" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="900" fill="#20262f">Proffstak AB</text>
-        </svg>
-      `)
-    };
+  function starSvg() {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m12 2.8 2.84 5.75 6.35.92-4.6 4.48 1.08 6.33L12 17.3l-5.67 2.98 1.08-6.33-4.6-4.48 6.35-.92L12 2.8Z" fill="#f5bf2f" stroke="#efb400" stroke-width=".6"/>
+      </svg>
+    `;
+  }
 
-    const companiesByPostcode = {
-      "12345": [
-        {
-          name: "Nordic Tak & Bygg",
-          logo: logos.nordic,
-          services: [
-            "Takbyte & takrenovering",
-            "Plåttak, tegeltak & papptak",
-            "Över 15 års erfarenhet",
-            "10 års garanti på arbetet"
-          ],
-          rating: "4.8/5",
-          reviews: 128,
-          response: "Snabb respons"
-        },
-        {
-          name: "Svensk Takläggning",
-          logo: logos.svensk,
-          services: [
-            "Takläggning & takservice",
-            "Alla typer av takmaterial",
-            "Över 20 års erfarenhet",
-            "12 års garanti på arbetet"
-          ],
-          rating: "4.7/5",
-          reviews: 96,
-          response: "Snabb respons"
-        },
-        {
-          name: "Trygga Tak Sverige",
-          logo: logos.trygga,
-          services: [
-            "Takbyte & underhåll",
-            "Tegeltak, plåttak & shingel",
-            "Över 10 års erfarenhet",
-            "10 års garanti på arbetet"
-          ],
-          rating: "4.6/5",
-          reviews: 74,
-          response: "Snabb respons"
-        },
-        {
-          name: "Proffstak AB",
-          logo: logos.proffs,
-          services: [
-            "Takrenovering & nyinstallation",
-            "Papptak, plåttak & tegeltak",
-            "Över 18 års erfarenhet",
-            "10 års garanti på arbetet"
-          ],
-          rating: "4.5/5",
-          reviews: 62,
-          response: "Snabb respons"
-        }
-      ]
-    };
+  function checkSvg() {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="#4ca85f"/>
+        <path d="m8.3 12.4 2.4 2.4 5-5.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  }
 
-    const companyList = document.getElementById('companyList');
-    const resultsState = document.getElementById('resultsState');
-    const emptyState = document.getElementById('emptyState');
-    const postcodeDisplay = document.getElementById('postcodeDisplay');
-    const resultsCountText = document.getElementById('resultsCountText');
-    const changePostcodeBtn = document.getElementById('changePostcodeBtn');
+  function tickSvg() {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m5.5 12.5 4.1 4.1L18.5 7.8" stroke="#67b96d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  }
 
-    function formatPostcode(postcode) {
-      const digits = postcode.replace(/\D/g, '').slice(0, 5);
-      if (digits.length === 5) {
-        return digits.slice(0, 3) + ' ' + digits.slice(3);
-      }
-      return postcode;
-    }
+  function pinGreySvg() {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" stroke="#7b8592" stroke-width="2"/>
+        <circle cx="12" cy="10" r="2.2" fill="#7b8592"/>
+      </svg>
+    `;
+  }
 
-    function starSvg() {
-      return `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m12 2.8 2.84 5.75 6.35.92-4.6 4.48 1.08 6.33L12 17.3l-5.67 2.98 1.08-6.33-4.6-4.48 6.35-.92L12 2.8Z" fill="#f5bf2f" stroke="#efb400" stroke-width=".6"/>
-        </svg>
-      `;
-    }
+  function shieldSvg() {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3 5 6v6c0 4.8 2.9 7.8 7 9 4.1-1.2 7-4.2 7-9V6l-7-3Z" stroke="currentColor" stroke-width="2"/>
+        <path d="m9.2 11.8 2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  }
 
-    function checkSvg() {
-      return `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" fill="#4ca85f"/>
-          <path d="m8.3 12.4 2.4 2.4 5-5.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
-    }
+  function arrowRightSvg() {
+    return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  }
 
-    function tickSvg() {
-      return `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m5.5 12.5 4.1 4.1L18.5 7.8" stroke="#67b96d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
-    }
+  function createCompanyCard(company) {
+    const servicesHtml = company.services.map(service => `
+      <div class="feature-row">
+        ${tickSvg()}
+        <span>${service}</span>
+      </div>
+    `).join('');
 
-    function pinGreySvg() {
-      return `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" stroke="#7b8592" stroke-width="2"/>
-          <circle cx="12" cy="10" r="2.2" fill="#7b8592"/>
-        </svg>
-      `;
-    }
-
-    function shieldSvg() {
-      return `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 3 5 6v6c0 4.8 2.9 7.8 7 9 4.1-1.2 7-4.2 7-9V6l-7-3Z" stroke="currentColor" stroke-width="2"/>
-          <path d="m9.2 11.8 2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
-    }
-
-    function arrowRightSvg() {
-      return `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
-    }
-
-    function createCompanyCard(company) {
-      const servicesHtml = company.services.map(service => `
-        <div class="feature-row">
-          ${tickSvg()}
-          <span>${service}</span>
+    return `
+      <article class="company-card">
+        <div class="company-col company-brand">
+          <img src="${company.logo}" alt="${company.name}" class="company-logo">
+          <div class="verified-pill">
+            ${shieldSvg()}
+            <span>KVALITETSSÄKRAD</span>
+          </div>
         </div>
-      `).join('');
 
-      return `
-        <article class="company-card">
-          <div class="company-col company-brand">
-            <img src="${company.logo}" alt="${company.name}" class="company-logo">
-            <div class="verified-pill">
-              ${shieldSvg()}
-              <span>KVALITETSSÄKRAD</span>
+        <div class="company-col">
+          <div class="company-features">
+            ${servicesHtml}
+            <div class="feature-row">
+              ${pinGreySvg()}
+              <span><strong>Verksam i ditt område</strong></span>
             </div>
           </div>
+        </div>
 
-          <div class="company-col">
-            <div class="company-features">
-              ${servicesHtml}
-              <div class="feature-row">
-                ${pinGreySvg()}
-                <span><strong>Verksam i ditt område</strong></span>
-              </div>
+        <div class="company-col">
+          <div class="company-rating">
+            <div class="stars">
+              ${starSvg()}${starSvg()}${starSvg()}${starSvg()}${starSvg()}
             </div>
-          </div>
 
-          <div class="company-col">
-            <div class="company-rating">
-              <div class="stars">
-                ${starSvg()}${starSvg()}${starSvg()}${starSvg()}${starSvg()}
-              </div>
-
-              <div class="rating-line">
-                <strong>${company.rating}</strong> (${company.reviews} omdömen)
-              </div>
-
-              <div class="response-tag">
-                ${checkSvg()}
-                <span>${company.response}</span>
-              </div>
-
-              <button class="offer-btn" type="button">
-                <span>Be om offert</span>
-                ${arrowRightSvg()}
-              </button>
+            <div class="rating-line">
+              <strong>${company.rating}</strong> (${company.reviews} omdömen)
             </div>
-          </div>
-        </article>
-      `;
-    }
 
-      function renderPostcode(postcodeRaw) {
-    const clean = postcodeRaw.replace(/\D/g, '').slice(0, 5);
+            <div class="response-tag">
+              ${checkSvg()}
+              <span>${company.response}</span>
+            </div>
+
+            <button class="offer-btn" type="button">
+              <span>Be om offert</span>
+              ${arrowRightSvg()}
+            </button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderPostcode(postcodeRaw) {
+    const clean = (postcodeRaw || '').replace(/\D/g, '').slice(0, 5);
     const companies = companiesByPostcode[clean];
 
-    postcodeDisplay.textContent = formatPostcode(clean || postcodeRaw || '12345');
+    postcodeDisplay.textContent = formatPostcode(clean);
 
     if (companies && companies.length) {
       resultsState.classList.remove('hidden');
@@ -1437,25 +1436,35 @@
     } else {
       resultsState.classList.add('hidden');
       emptyState.classList.remove('hidden');
-      document.getElementById('postcode').value = clean || postcodeRaw;
+
+      const postcodeInput = document.getElementById('postcode');
+      if (postcodeInput) postcodeInput.value = clean;
     }
   }
 
-    changePostcodeBtn.addEventListener('click', () => {
-      const newPostcode = window.prompt('Ange ditt postnummer', '12345');
-      if (newPostcode !== null && newPostcode.trim() !== '') {
-        renderPostcode(newPostcode.trim());
-      }
-    });
+  changePostcodeBtn.addEventListener('click', () => {
+    const current = new URLSearchParams(window.location.search).get('postcode') || '';
+    const newPostcode = window.prompt('Ange ditt postnummer', current);
 
-    document.querySelector('.lead-form').addEventListener('submit', (e) => {
+    if (newPostcode !== null && newPostcode.trim() !== '') {
+      const params = new URLSearchParams(window.location.search);
+      params.set('postcode', newPostcode.trim());
+      window.location.search = params.toString();
+    }
+  });
+
+  const leadForm = document.querySelector('.lead-form');
+  if (leadForm) {
+    leadForm.addEventListener('submit', (e) => {
       e.preventDefault();
       alert('Tack! Din förfrågan har registrerats.');
     });
+  }
 
-    // Initial sample postcode
-    renderPostcode('12345');
-  </script>
+  const params = new URLSearchParams(window.location.search);
+  const postcodeFromUrl = params.get('postcode') || '';
+  renderPostcode(postcodeFromUrl);
+</script>
 
 </body>
 </html>
