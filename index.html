@@ -51,6 +51,10 @@
       max-width:100%;
     }
 
+    button{
+      font:inherit;
+    }
+
     .container{
       width:var(--wrap);
       margin:0 auto;
@@ -59,7 +63,7 @@
     /* HEADER */
     .site-header{
       position:relative;
-      z-index:30;
+      z-index:100;
       background:#fff;
       border-bottom:1px solid rgba(0,0,0,.05);
     }
@@ -70,6 +74,7 @@
       align-items:center;
       justify-content:space-between;
       gap:24px;
+      position:relative;
     }
 
     .brand{
@@ -77,6 +82,8 @@
       align-items:center;
       gap:5px;
       flex-shrink:0;
+      position:relative;
+      z-index:101;
     }
 
     .brand-logo{
@@ -104,13 +111,22 @@
       margin-left:auto;
     }
 
-    .nav a{
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:42px;
+    }
+
+    .nav-links a{
       font-size:18px;
       font-weight:600;
       color:#4b4b4b;
     }
 
     .cta-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       background:var(--red);
       color:#fff;
       font-weight:800;
@@ -118,6 +134,56 @@
       padding:16px 26px;
       border-radius:14px;
       box-shadow:0 10px 18px rgba(239,59,51,.22);
+      white-space:nowrap;
+    }
+
+    .burger-btn{
+      display:none;
+      width:66px;
+      height:52px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      z-index:101;
+    }
+
+    .burger-lines{
+      width:42px;
+      height:30px;
+      position:relative;
+      display:block;
+    }
+
+    .burger-lines span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:4px;
+      border-radius:999px;
+      background:#666;
+      transition:transform .28s ease, opacity .2s ease, top .28s ease;
+    }
+
+    .burger-lines span:nth-child(1){ top:0; }
+    .burger-lines span:nth-child(2){ top:13px; }
+    .burger-lines span:nth-child(3){ top:26px; }
+
+    .burger-btn.active .burger-lines span:nth-child(1){
+      top:13px;
+      transform:rotate(45deg);
+    }
+
+    .burger-btn.active .burger-lines span:nth-child(2){
+      opacity:0;
+    }
+
+    .burger-btn.active .burger-lines span:nth-child(3){
+      top:13px;
+      transform:rotate(-45deg);
     }
 
     /* HERO */
@@ -357,7 +423,7 @@
       filter:drop-shadow(0 20px 34px rgba(17,63,122,.12));
     }
 
-    /* RESPONSIVE */
+    /* TABLET */
     @media (max-width:1100px){
       :root{
         --hero-h:650px;
@@ -367,7 +433,11 @@
         gap:26px;
       }
 
-      .nav a{
+      .nav-links{
+        gap:26px;
+      }
+
+      .nav-links a{
         font-size:16px;
       }
 
@@ -398,18 +468,77 @@
       }
     }
 
+    /* MOBILE NAV + LAYOUT */
     @media (max-width:860px){
       .site-header .container{
-        flex-wrap:wrap;
-        justify-content:center;
-        padding:16px 0;
+        min-height:110px;
+        padding:0;
+      }
+
+      .brand{
+        gap:6px;
+      }
+
+      .brand-logo{
+        width:34px;
+        height:34px;
+      }
+
+      .brand-name{
+        font-size:24px;
       }
 
       .nav{
-        width:100%;
-        justify-content:center;
-        flex-wrap:wrap;
         margin-left:0;
+        gap:14px;
+      }
+
+      .nav-links{
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:0;
+        background:#fff;
+        border-top:1px solid rgba(0,0,0,.06);
+        box-shadow:0 18px 28px rgba(0,0,0,.08);
+        padding:10px 0;
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(-10px);
+        transition:opacity .25s ease, transform .25s ease, visibility .25s ease;
+        z-index:99;
+      }
+
+      .nav-links.open{
+        opacity:1;
+        visibility:visible;
+        transform:translateY(0);
+      }
+
+      .nav-links a{
+        width:100%;
+        padding:16px 24px;
+        font-size:18px;
+      }
+
+      .nav-links a:hover{
+        background:#fafafa;
+      }
+
+      .nav .cta-btn{
+        padding:14px 28px;
+        min-width:178px;
+        font-size:18px;
+        border-radius:18px;
+        box-shadow:0 12px 22px rgba(239,59,51,.16);
+      }
+
+      .burger-btn{
+        display:inline-flex;
       }
 
       .hero{
@@ -498,8 +627,51 @@
         --wrap:min(100%, calc(100% - 24px));
       }
 
+      .site-header .container{
+        min-height:108px;
+      }
+
       .brand-name{
         font-size:22px;
+      }
+
+      .brand-logo{
+        width:32px;
+        height:32px;
+      }
+
+      .nav{
+        gap:10px;
+      }
+
+      .nav .cta-btn{
+        min-width:150px;
+        padding:13px 22px;
+        font-size:16px;
+        border-radius:18px;
+      }
+
+      .burger-btn{
+        width:56px;
+        height:50px;
+      }
+
+      .burger-lines{
+        width:36px;
+        height:26px;
+      }
+
+      .burger-lines span{
+        height:4px;
+      }
+
+      .burger-lines span:nth-child(1){ top:0; }
+      .burger-lines span:nth-child(2){ top:11px; }
+      .burger-lines span:nth-child(3){ top:22px; }
+
+      .burger-btn.active .burger-lines span:nth-child(1),
+      .burger-btn.active .burger-lines span:nth-child(3){
+        top:11px;
       }
 
       .hero-copy h1{
@@ -577,10 +749,21 @@
       </a>
 
       <nav class="nav">
-        <a href="#">Hem</a>
-        <a href="#">Så funkar det</a>
-        <a href="#">Vanliga frågor</a>
+        <div class="nav-links" id="mobileMenu">
+          <a href="#">Hem</a>
+          <a href="#">Så funkar det</a>
+          <a href="#">Vanliga frågor</a>
+        </div>
+
         <a href="#" class="cta-btn">Få Offert</a>
+
+        <button class="burger-btn" id="burgerBtn" aria-label="Öppna meny" aria-expanded="false" aria-controls="mobileMenu" type="button">
+          <span class="burger-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
       </nav>
     </div>
   </header>
@@ -644,6 +827,33 @@
       </div>
     </div>
   </section>
+
+  <script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      burgerBtn.classList.toggle('active', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        burgerBtn.classList.remove('active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860) {
+        mobileMenu.classList.remove('open');
+        burgerBtn.classList.remove('active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
 
 </body>
 </html>
